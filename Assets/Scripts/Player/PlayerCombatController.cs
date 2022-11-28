@@ -6,23 +6,37 @@ public class PlayerCombatController : MonoBehaviour
 {
     [SerializeField]
     private bool combatEnabled;
+
     [SerializeField]
-    private float inputTimer, attack1Radius, attack1Damage;
+    private float inputTimer,
+        attack1Radius,
+        attack1Damage;
+
     [SerializeField]
     private Transform attack1HitBoxPos;
+
     [SerializeField]
     private LayerMask WhatIsDamageable;
 
-    private bool gotInput, isAttacking, isFirstAttack;
+    private bool gotInput,
+        isAttacking,
+        isFirstAttack;
 
     private float lastInputTime = Mathf.NegativeInfinity;
 
+    private float[] attackDetails = new float[2];
+
     private Animator anim;
-    
+
+    private PlayerController PC;
+    private PlayerStats PS;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
         anim.SetBool("canAttack", combatEnabled);
+        PC = GetComponent<PlayerController>();
+        PS = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -60,28 +74,51 @@ public class PlayerCombatController : MonoBehaviour
         }
         if (Time.time >= lastInputTime + inputTimer)
         {
-            //wait next input 
+            //wait next input
             gotInput = false;
         }
     }
-    
+
     private void CheckAttackHitBox()
     {
-        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(attack1HitBoxPos.position, attack1Radius, WhatIsDamageable);
+        Collider2D[] detectedObjects = Physics2D.OverlapCircleAll(
+            attack1HitBoxPos.position,
+            attack1Radius,
+            WhatIsDamageable
+        );
+
+        attackDetails[0] = attack1Damage;
+        attackDetails[1] = transform.position.x;
+
         foreach (Collider2D collider in detectedObjects)
         {
-            collider.transform.parent.SendMessage("Damage", attack1Damage);
+            collider.transform.parent.SendMessage("Damage", attackDetails);
             //Instantiate hit particle
-            
         }
     }
-
 
     private void FinishAttack1()
     {
         isAttacking = false;
         anim.SetBool("isAttacking", isAttacking);
         anim.SetBool("attack1", false);
+    }
+
+    private void Damage(float[] attackDetails)
+    {
+        int direction;
+
+        PS.DescreaseHealth(attackDetails[0]);
+
+        if (attackDetails[1] < transform.position.x)
+        {
+            direction = 1;
+        }
+        else
+        {
+            direction = -1;
+        }
+        PC.Knockback(direction);
     }
 
     private void OnDrawGizmos()

@@ -5,21 +5,35 @@ using UnityEngine;
 public class CombatDummyController : MonoBehaviour
 {
     [SerializeField]
-    private float maxHealth, knockbackSpeedX, knockbackSpeedY, knockbackDuration, knockbackDeathSpeedX, knockbackDeathSpeedY, deathTorque;
+    private float maxHealth,
+        knockbackSpeedX,
+        knockbackSpeedY,
+        knockbackDuration,
+        knockbackDeathSpeedX,
+        knockbackDeathSpeedY,
+        deathTorque;
+
     [SerializeField]
     private bool applyKnockback;
+
     [SerializeField]
     private GameObject hitParticle;
 
-    private float currentHealth, knockbackStart;
+    private float currentHealth,
+        knockbackStart;
 
     private int playerFacingDirection;
 
-    private bool playerOnLeft, knockBack;
+    private bool playerOnLeft,
+        knockBack;
 
     private PlayerController pc;
-    private GameObject aliveGO, brokenTopGO, brokenBotGO;
-    private Rigidbody2D rbAlive, rbBrokenTop, rbBrokenBot;
+    private GameObject aliveGO,
+        brokenTopGO,
+        brokenBotGO;
+    private Rigidbody2D rbAlive,
+        rbBrokenTop,
+        rbBrokenBot;
     private Animator aliveAnim;
 
     private void Start()
@@ -47,12 +61,24 @@ public class CombatDummyController : MonoBehaviour
         CheckKnockback();
     }
 
-    private void Damage(float amount)
+    private void Damage(float[] details)
     {
-        currentHealth -= amount;
-        playerFacingDirection = pc.GetFacingDirection();
+        currentHealth -= details[0];
 
-        Instantiate(hitParticle, aliveGO.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
+        if (details[1] < aliveGO.transform.position.x)
+        {
+            playerFacingDirection = 1;
+        }
+        else
+        {
+            playerFacingDirection = -1;
+        }
+
+        Instantiate(
+            hitParticle,
+            aliveGO.transform.position,
+            Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f))
+        );
 
         if (playerFacingDirection == 1)
         {
@@ -103,8 +129,14 @@ public class CombatDummyController : MonoBehaviour
         brokenTopGO.transform.position = aliveGO.transform.position;
         brokenBotGO.transform.position = aliveGO.transform.position;
 
-        rbBrokenBot.velocity = new Vector2(knockbackSpeedX * playerFacingDirection, knockbackSpeedY);
-        rbBrokenTop.velocity = new Vector2(knockbackDeathSpeedX * playerFacingDirection, knockbackDeathSpeedY);
+        rbBrokenBot.velocity = new Vector2(
+            knockbackSpeedX * playerFacingDirection,
+            knockbackSpeedY
+        );
+        rbBrokenTop.velocity = new Vector2(
+            knockbackDeathSpeedX * playerFacingDirection,
+            knockbackDeathSpeedY
+        );
         rbBrokenTop.AddTorque(deathTorque * -playerFacingDirection, ForceMode2D.Impulse);
     }
 }
