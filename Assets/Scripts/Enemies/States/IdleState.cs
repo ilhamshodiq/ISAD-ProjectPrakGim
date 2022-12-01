@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,25 +12,23 @@ public class IdleState : State
 
     protected float idleTime;
 
-    public IdleState(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
-        : base(entity, stateMachine, animBoolName) { }
-
-    public IdleState(
-        Entity entity,
-        FiniteStateMachine stateMachine,
-        string animBoolName,
-        D_IdleState stateData
-    ) : base(entity, stateMachine, animBoolName)
+    public IdleState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_IdleState stateData) : base(etity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Enter()
     {
         base.Enter();
+
         entity.SetVelocity(0f);
-        isIdleTimeOver = false;
-        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+        isIdleTimeOver = false;        
         SetRandomIdleTime();
     }
 
@@ -47,7 +45,8 @@ public class IdleState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (Time.time >= startTime + idleTime)
+
+        if(Time.time >= startTime + idleTime)
         {
             isIdleTimeOver = true;
         }
@@ -55,11 +54,10 @@ public class IdleState : State
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
-        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+        base.PhysicsUpdate();        
     }
 
-    public void SetFlipAFterIdle(bool flip)
+    public void SetFlipAfterIdle(bool flip)
     {
         flipAfterIdle = flip;
     }

@@ -1,39 +1,25 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatDummyController : MonoBehaviour
 {
     [SerializeField]
-    private float maxHealth,
-        knockbackSpeedX,
-        knockbackSpeedY,
-        knockbackDuration,
-        knockbackDeathSpeedX,
-        knockbackDeathSpeedY,
-        deathTorque;
-
+    private float maxHealth, knockbackSpeedX, knockbackSpeedY, knockbackDuration, knockbackDeathSpeedX, knockbackDeathSpeedY, deathTorque;
     [SerializeField]
     private bool applyKnockback;
-
     [SerializeField]
     private GameObject hitParticle;
 
-    private float currentHealth,
-        knockbackStart;
+    private float currentHealth, knockbackStart;
 
     private int playerFacingDirection;
 
-    private bool playerOnLeft,
-        knockBack;
+    private bool playerOnLeft, knockback;
 
     private PlayerController pc;
-    private GameObject aliveGO,
-        brokenTopGO,
-        brokenBotGO;
-    private Rigidbody2D rbAlive,
-        rbBrokenTop,
-        rbBrokenBot;
+    private GameObject aliveGO, brokenTopGO, brokenBotGO;
+    private Rigidbody2D rbAlive, rbBrokenTop, rbBrokenBot;
     private Animator aliveAnim;
 
     private void Start()
@@ -61,11 +47,11 @@ public class CombatDummyController : MonoBehaviour
         CheckKnockback();
     }
 
-    private void Damage(float[] details)
+    private void Damage(AttackDetails details)
     {
-        currentHealth -= details[0];
-
-        if (details[1] < aliveGO.transform.position.x)
+        currentHealth -= details.damageAmount;
+        
+        if(details.position.x < aliveGO.transform.position.x)
         {
             playerFacingDirection = 1;
         }
@@ -74,13 +60,9 @@ public class CombatDummyController : MonoBehaviour
             playerFacingDirection = -1;
         }
 
-        Instantiate(
-            hitParticle,
-            aliveGO.transform.position,
-            Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f))
-        );
+        Instantiate(hitParticle, aliveAnim.transform.position, Quaternion.Euler(0.0f, 0.0f, Random.Range(0.0f, 360.0f)));
 
-        if (playerFacingDirection == 1)
+        if(playerFacingDirection == 1)
         {
             playerOnLeft = true;
         }
@@ -92,30 +74,31 @@ public class CombatDummyController : MonoBehaviour
         aliveAnim.SetBool("playerOnLeft", playerOnLeft);
         aliveAnim.SetTrigger("damage");
 
-        if (applyKnockback && currentHealth > 0.0f)
+        if(applyKnockback && currentHealth > 0.0f)
         {
-            //knockback func
+            //Knockback
             Knockback();
         }
-        if (currentHealth <= 0)
+
+        if(currentHealth <= 0.0f)
         {
-            //mati cok
+            //Die
             Die();
         }
     }
 
     private void Knockback()
     {
-        knockBack = true;
+        knockback = true;
         knockbackStart = Time.time;
         rbAlive.velocity = new Vector2(knockbackSpeedX * playerFacingDirection, knockbackSpeedY);
     }
 
     private void CheckKnockback()
     {
-        if (Time.time >= knockbackStart + knockbackDuration && knockBack)
+        if(Time.time >= knockbackStart + knockbackDuration && knockback)
         {
-            knockBack = false;
+            knockback = false;
             rbAlive.velocity = new Vector2(0.0f, rbAlive.velocity.y);
         }
     }
@@ -129,14 +112,8 @@ public class CombatDummyController : MonoBehaviour
         brokenTopGO.transform.position = aliveGO.transform.position;
         brokenBotGO.transform.position = aliveGO.transform.position;
 
-        rbBrokenBot.velocity = new Vector2(
-            knockbackSpeedX * playerFacingDirection,
-            knockbackSpeedY
-        );
-        rbBrokenTop.velocity = new Vector2(
-            knockbackDeathSpeedX * playerFacingDirection,
-            knockbackDeathSpeedY
-        );
+        rbBrokenBot.velocity = new Vector2(knockbackSpeedX * playerFacingDirection, knockbackSpeedY);
+        rbBrokenTop.velocity = new Vector2(knockbackDeathSpeedX * playerFacingDirection, knockbackDeathSpeedY);
         rbBrokenTop.AddTorque(deathTorque * -playerFacingDirection, ForceMode2D.Impulse);
     }
 }

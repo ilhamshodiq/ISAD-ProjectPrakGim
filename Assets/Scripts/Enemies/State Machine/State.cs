@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +11,9 @@ public class State
 
     protected string animBoolName;
 
-    public State(Entity entity, FiniteStateMachine stateMachine, string animBoolName)
+    public State(Entity etity, FiniteStateMachine stateMachine, string animBoolName)
     {
-        this.entity = entity;
+        this.entity = etity;
         this.stateMachine = stateMachine;
         this.animBoolName = animBoolName;
     }
@@ -22,6 +22,7 @@ public class State
     {
         startTime = Time.time;
         entity.anim.SetBool(animBoolName, true);
+        DoChecks();
     }
 
     public virtual void Exit()
@@ -29,7 +30,18 @@ public class State
         entity.anim.SetBool(animBoolName, false);
     }
 
-    public virtual void LogicUpdate() { }
+    public virtual void LogicUpdate()
+    {
 
-    public virtual void PhysicsUpdate() { }
+    }
+
+    public virtual void PhysicsUpdate()
+    {
+        DoChecks();
+    }
+
+    public virtual void DoChecks()
+    {
+
+    }
 }

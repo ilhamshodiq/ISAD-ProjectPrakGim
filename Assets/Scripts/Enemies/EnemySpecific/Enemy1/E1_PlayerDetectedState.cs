@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +6,7 @@ public class E1_PlayerDetectedState : PlayerDetectedState
 {
     private Enemy1 enemy;
 
-    public E1_PlayerDetectedState(
-        Entity entity,
-        FiniteStateMachine stateMachine,
-        string animBoolName,
-        D_PlayerDetected stateData,
-        Enemy1 enemy
-    ) : base(entity, stateMachine, stateData, animBoolName)
+    public E1_PlayerDetectedState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData, Enemy1 enemy) : base(etity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -31,11 +25,24 @@ public class E1_PlayerDetectedState : PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (!isPlayerInMaxAgroRange)
+        if (performCloseRangeAction)
         {
-            enemy.idleState.SetFlipAFterIdle(false);
-            stateMachine.ChangeState(enemy.idleState);
+            stateMachine.ChangeState(enemy.meleeAttackState);
         }
+        else if (performLongRangeAction)
+        {            
+            stateMachine.ChangeState(enemy.chargeState);
+        }
+        else if (!isPlayerInMaxAgroRange)
+        {
+            stateMachine.ChangeState(enemy.lookForPlayerState);
+        }
+        else if (!isDetectingLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(enemy.moveState);
+        }
+        
     }
 
     public override void PhysicsUpdate()

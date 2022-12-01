@@ -24,7 +24,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private float lastInputTime = Mathf.NegativeInfinity;
 
-    private float[] attackDetails = new float[2];
+    private AttackDetails attackDetails;
 
     private Animator anim;
 
@@ -87,8 +87,8 @@ public class PlayerCombatController : MonoBehaviour
             WhatIsDamageable
         );
 
-        attackDetails[0] = attack1Damage;
-        attackDetails[1] = transform.position.x;
+        attackDetails.damageAmount = attack1Damage;
+        attackDetails.position = transform.position;
 
         foreach (Collider2D collider in detectedObjects)
         {
@@ -104,13 +104,13 @@ public class PlayerCombatController : MonoBehaviour
         anim.SetBool("attack1", false);
     }
 
-    private void Damage(float[] attackDetails)
+    private void Damage(AttackDetails attackDetails)
     {
         int direction;
 
-        PS.DescreaseHealth(attackDetails[0]);
+        PS.DescreaseHealth(attackDetails.damageAmount);
 
-        if (attackDetails[1] < transform.position.x)
+        if (attackDetails.position.x < transform.position.x)
         {
             direction = 1;
         }

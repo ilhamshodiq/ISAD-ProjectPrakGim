@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,25 +8,31 @@ public class PlayerDetectedState : State
 
     protected bool isPlayerInMinAgroRange;
     protected bool isPlayerInMaxAgroRange;
+    protected bool performLongRangeAction;
+    protected bool performCloseRangeAction;
+    protected bool isDetectingLedge;
 
-    public PlayerDetectedState(
-        Entity entity,
-        FiniteStateMachine stateMachine,
-        D_PlayerDetected stateData,
-        string animBoolName
-    ) : base(entity, stateMachine, animBoolName)
+    public PlayerDetectedState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, D_PlayerDetected stateData) : base(etity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+        isDetectingLedge = entity.CheckLedge();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        entity.SetVelocity(0f);
-
-        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+        performLongRangeAction = false;
+        entity.SetVelocity(0f);     
     }
 
     public override void Exit()
@@ -37,13 +43,15 @@ public class PlayerDetectedState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (Time.time >= startTime + stateData.longRangeActionTime)
+        {
+            performLongRangeAction = true;
+        }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
-
-        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+        base.PhysicsUpdate();        
     }
 }
