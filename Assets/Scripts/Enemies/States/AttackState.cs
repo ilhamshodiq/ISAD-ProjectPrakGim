@@ -9,7 +9,12 @@ public class AttackState : State
     protected bool isAnimationFinished;
     protected bool isPlayerInMinAgroRange;
 
-    public AttackState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition) : base(etity, stateMachine, animBoolName)
+    public AttackState(
+        Entity etity,
+        FiniteStateMachine stateMachine,
+        string animBoolName,
+        Transform attackPosition
+    ) : base(etity, stateMachine, animBoolName)
     {
         this.attackPosition = attackPosition;
     }
@@ -45,10 +50,7 @@ public class AttackState : State
         base.PhysicsUpdate();
     }
 
-    public virtual void TriggerAttack()
-    {
-
-    }
+    public virtual void TriggerAttack() { }
 
     public virtual void FinishAttack()
     {
