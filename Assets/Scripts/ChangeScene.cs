@@ -41,4 +41,9 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(sceneID);
     }
+
+    public void PlayStage2(int sceneID)
+    {
+        SceneManager.LoadScene(sceneID);
+    }
 }
