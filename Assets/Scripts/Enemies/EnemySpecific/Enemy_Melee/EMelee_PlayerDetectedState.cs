@@ -40,6 +40,10 @@ public class EMelee_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.ChangeState(enemy.attackState);
         }
+        else if (performLongRangeAction)
+        {
+            stateMachine.ChangeState(enemy.chargeState);
+        }
         else if (!isPlayerInMaxAgroRange)
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);

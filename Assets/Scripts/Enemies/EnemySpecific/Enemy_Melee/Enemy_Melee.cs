@@ -8,6 +8,7 @@ public class Enemy_Melee : Entity
     public EMelee_MoveState moveState { get; private set; }
     public EMelee_PlayerDetectedState playerDetectedState { get; private set; }
     public EMelee_LookForPlayerState lookForPlayerState { get; private set; }
+    public EMelee_ChargeState chargeState { get; private set; }
     public EMelee_DeadState deadState { get; private set; }
     public EMelee_AttackState attackState { get; private set; }
 
@@ -22,6 +23,9 @@ public class Enemy_Melee : Entity
 
     [SerializeField]
     private D_LookForPlayer lookForPlayerStateData;
+
+    [SerializeField]
+    private D_ChargeState chargeStateData;
 
     [SerializeField]
     private D_DeadState deadStateData;
@@ -60,6 +64,7 @@ public class Enemy_Melee : Entity
             attackStateData,
             this
         );
+        chargeState = new EMelee_ChargeState(this, stateMachine, "charge", chargeStateData, this);
 
         stateMachine.Initialize(moveState);
     }
