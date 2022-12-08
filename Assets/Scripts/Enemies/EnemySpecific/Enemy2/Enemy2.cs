@@ -58,7 +58,7 @@ public class Enemy2 : Entity
         lookForPlayerState = new E2_LookForPlayerState(this, stateMachine, "lookForPlayer", lookForPlayerStateData, this);
         stunState = new E2_StunState(this, stateMachine, "stun", stunStateData, this);
         deadState = new E2_DeadState(this, stateMachine, "dead", deadStateData, this);
-        dodgeState = new E2_DodgeState(this, stateMachine, "dodge", dodgeStateData, this);
+        dodgeState = new E2_DodgeState(this, stateMachine, "dodge", dodgeStateData, this);        
         rangedAttackState = new E2_RangedAttackState(this, stateMachine, "rangedAttack", meleeAttackPosition, rangedAttackPosition, rangedAttackStateData, this);
 
         stateMachine.Initialize(moveState);

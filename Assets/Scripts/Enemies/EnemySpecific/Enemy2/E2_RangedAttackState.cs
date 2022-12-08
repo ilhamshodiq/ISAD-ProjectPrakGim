@@ -5,7 +5,16 @@ using UnityEngine;
 public class E2_RangedAttackState : RangedAttackState
 {
     private Enemy2 enemy;
-    public E2_RangedAttackState(Entity etity, FiniteStateMachine stateMachine, string animBoolName, Transform attackPosition, Transform rangedAttackPosition, D_RangedAttackState stateData, Enemy2 enemy) : base(etity, stateMachine, animBoolName, attackPosition, stateData)
+
+    public E2_RangedAttackState(
+        Entity etity,
+        FiniteStateMachine stateMachine,
+        string animBoolName,
+        Transform attackPosition,
+        Transform rangedAttackPosition,
+        D_RangedAttackState stateData,
+        Enemy2 enemy
+    ) : base(etity, stateMachine, animBoolName, attackPosition, stateData)
     {
         this.enemy = enemy;
     }
@@ -51,6 +60,7 @@ public class E2_RangedAttackState : RangedAttackState
     {
         base.PhysicsUpdate();
     }
+
     public override void TriggerAttack()
     {
         base.TriggerAttack();

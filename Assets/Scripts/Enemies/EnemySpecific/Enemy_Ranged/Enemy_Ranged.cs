@@ -10,24 +10,30 @@ public class Enemy_Ranged : Entity
     public ERanged_LookForPlayerState lookForPlayerState { get; private set; }
     public ERanged_DeadState deadState { get; private set; }
     public ERanged_AttackState attackState { get; private set; }
+    public ERanged_DodgeState dodgeState { get; private set; }
 
     [SerializeField]
-    private D_IdleState idleStateData;
+    public D_IdleState idleStateData;
 
     [SerializeField]
-    private D_MoveState moveStateData;
+    public D_MoveState moveStateData;
 
     [SerializeField]
-    private D_PlayerDetected playerDetectedData;
+    public D_PlayerDetected playerDetectedData;
 
     [SerializeField]
-    private D_LookForPlayer lookForPlayerStateData;
+    public D_LookForPlayer lookForPlayerStateData;
 
     [SerializeField]
-    private D_DeadState deadStateData;
+    public D_DeadState deadStateData;
 
     [SerializeField]
-    private D_RangedAttackState attackStateData;
+    public D_RangedAttackState attackStateData;
+
+    [SerializeField]
+    public D_DodgeState dodgeStateData;
+
+
 
     [SerializeField]
     private Transform rangedAttackPosition;
@@ -60,6 +66,7 @@ public class Enemy_Ranged : Entity
             attackStateData,
             this
         );
+        dodgeState = new ERanged_DodgeState(this, stateMachine, "dodge", dodgeStateData, this);
 
         stateMachine.Initialize(moveState);
     }

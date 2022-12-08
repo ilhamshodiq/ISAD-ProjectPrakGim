@@ -41,18 +41,20 @@ public class ERanged_PlayerDetectedState : PlayerDetectedState
     {
         base.PhysicsUpdate();
 
-        // if (performLongRangeAction)
-        // {
-        //     stateMachine.ChangeState(enemy.chargeState);
-        // }
-        if (!isPlayerInMaxAgroRange)
+        if (performCloseRangeAction)
+        {
+            if (Time.time >= enemy.dodgeState.startTime + enemy.dodgeStateData.dodgeCooldown)
+            {
+                stateMachine.ChangeState(enemy.dodgeState);
+            }
+        }
+        else if (performLongRangeAction)
+        {
+            stateMachine.ChangeState(enemy.attackState);
+        }
+        else if (!isPlayerInMaxAgroRange)
         {
             stateMachine.ChangeState(enemy.lookForPlayerState);
-        }
-        else if (!isDetectingLedge)
-        {
-            entity.Flip();
-            stateMachine.ChangeState(enemy.moveState);
         }
     }
 }
