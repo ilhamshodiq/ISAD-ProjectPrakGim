@@ -19,6 +19,12 @@ public class MainMusicTheme : MonoBehaviour
             Destroy(gameObject);
             // MainMusicTheme.bgMusic.GetComponent<AudioSource>().Pause();
         }
+        
+        if (SceneManager.GetActiveScene().name == "Stage 2")
+        {
+            Destroy(gameObject);
+            // MainMusicTheme.bgMusic.GetComponent<AudioSource>().Pause();
+        }
     }
 
     // Play music when scene changes

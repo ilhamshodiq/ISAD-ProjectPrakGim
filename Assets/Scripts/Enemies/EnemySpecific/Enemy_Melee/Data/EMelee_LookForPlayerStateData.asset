@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EMelee_LookForPlayerStateData
   m_EditorClassIdentifier: 
   amountOfTurns: 2
-  timeBetweenTurns: 0.9
+  timeBetweenTurns: 0.75
