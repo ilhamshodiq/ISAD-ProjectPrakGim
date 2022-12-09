@@ -15,10 +15,15 @@ public class PlayerStats : MonoBehaviour
 
     private GameManager GM;
 
+
     private void Start()
     {
         currentHealth = maxHealth;
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Update()
+    {
     }
 
     public void DescreaseHealth(float amount)
@@ -26,6 +31,14 @@ public class PlayerStats : MonoBehaviour
         currentHealth -= amount;
 
         if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "FallDetector")
         {
             Die();
         }
