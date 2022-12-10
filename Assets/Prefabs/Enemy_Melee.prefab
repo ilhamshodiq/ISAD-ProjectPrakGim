@@ -117,7 +117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291950141852038255}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.77, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0.91, y: -0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -178,8 +178,8 @@ MonoBehaviour:
   moveStateData: {fileID: 11400000, guid: faa95f36461029d4cb8ad704efbdcb33, type: 2}
   playerDetectedData: {fileID: 11400000, guid: e11b7701d2f79d446888f67b880e8253, type: 2}
   lookForPlayerStateData: {fileID: 11400000, guid: f0bffb68673ce074ab932c064ef6b05a, type: 2}
-  chargeStateData: {fileID: 11400000, guid: 561e185db10cbdb4bb24395bcdcc46b1, type: 2}
   deadStateData: {fileID: 11400000, guid: d0657d4f69467a345b463d59a63ea5fc, type: 2}
+  chargeStateData: {fileID: 11400000, guid: 561e185db10cbdb4bb24395bcdcc46b1, type: 2}
   attackStateData: {fileID: 11400000, guid: e8da4f0bd170bfa4381f09dde28faaf8, type: 2}
   meleeAttackPosition: {fileID: 291950141852038254}
 --- !u!1 &291950141983472198

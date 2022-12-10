@@ -10,6 +10,7 @@ public class Enemy_Melee : Entity
     public EMelee_LookForPlayerState lookForPlayerState { get; private set; }
     public EMelee_DeadState deadState { get; private set; }
     public EMelee_AttackState attackState { get; private set; }
+    public EMelee_ChargeState chargeState { get; private set; }
 
     [SerializeField]
     private D_IdleState idleStateData;
@@ -25,6 +26,8 @@ public class Enemy_Melee : Entity
 
     [SerializeField]
     private D_DeadState deadStateData;
+    [SerializeField]
+    private D_ChargeState chargeStateData;
 
     [SerializeField]
     private D_MeleeAttack attackStateData;
@@ -58,6 +61,13 @@ public class Enemy_Melee : Entity
             "attack",
             meleeAttackPosition,
             attackStateData,
+            this
+        );
+        chargeState = new EMelee_ChargeState(
+            this,
+            stateMachine,
+            "charge",
+            chargeStateData,
             this
         );
 
