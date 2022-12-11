@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField]
-    private float maxHealth;
+    private float maxHealth;    
 
     [SerializeField]
     private GameObject deathChunkParticle,
         deathBloodParticle;
+
+    [SerializeField] 
+    private AudioSource dieSoundEffect;
 
     private float currentHealth;
 
@@ -29,11 +32,12 @@ public class PlayerStats : MonoBehaviour
     public void DescreaseHealth(float amount)
     {
         currentHealth -= amount;
+            dieSoundEffect.Play();
 
         if (currentHealth <= 0)
         {
             Die();
-        }
+        }            
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -41,14 +45,14 @@ public class PlayerStats : MonoBehaviour
         if (other.tag == "FallDetector")
         {
             Die();
-        }
+        }    
     }
 
     private void Die()
-    {
+    {                     
         Instantiate(deathChunkParticle, transform.position, deathChunkParticle.transform.rotation);
         Instantiate(deathBloodParticle, transform.position, deathBloodParticle.transform.rotation);
         GM.Respawn();
-        Destroy(gameObject);
+        Destroy(gameObject); 
     }
 }

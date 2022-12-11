@@ -6,7 +6,8 @@ public class PlayerCombatController : MonoBehaviour
 {
     [SerializeField]
     private bool combatEnabled;
-
+    [SerializeField] 
+    private AudioSource hitSoundEffect;
     [SerializeField]
     private float inputTimer,
         attack1Radius,
@@ -54,6 +55,7 @@ public class PlayerCombatController : MonoBehaviour
                 gotInput = true;
                 lastInputTime = Time.time;
             }
+                hitSoundEffect.Play();
         }
     }
 

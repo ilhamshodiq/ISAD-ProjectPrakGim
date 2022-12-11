@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private float wallJumpTimer;
     private float knockbackStartTime;
 
+    [SerializeField] 
+    private AudioSource jumpSoundEffect; // sound lompat 
+
     [SerializeField]
     private float knockbackDuration;
 
@@ -329,6 +332,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (isGrounded)
             {
+                //jumpSoundEffect.Play();
                 NormalJump();
             }
         }
@@ -365,6 +369,7 @@ public class PlayerController : MonoBehaviour
             jumpTimer = 0;
             isAttemptingToJump = false;
             checkJumpMultiplier = true;
+            jumpSoundEffect.Play();
         }
     }
 
