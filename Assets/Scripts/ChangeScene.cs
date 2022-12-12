@@ -46,6 +46,10 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene(sceneID);
     }
+    public void PlayStage3(int sceneID)
+    {
+        SceneManager.LoadScene(sceneID);
+    }
 
     public void QuitApp()
     {
