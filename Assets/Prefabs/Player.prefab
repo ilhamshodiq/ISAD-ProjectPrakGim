@@ -202,9 +202,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135790d2676270248bcedf404b747ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 3
   deathChunkParticle: {fileID: 748406040606214535, guid: ace89a55ab5b33d43aee3186e6eb811a, type: 3}
   deathBloodParticle: {fileID: 385822487078638597, guid: e29e8ce5699860440952c5998105e9eb, type: 3}
+  hearts:
+  - {fileID: 6906532383243793026, guid: 5ff6592bfc44b834f844f60419541230, type: 3}
+  - {fileID: 7945961646283477162, guid: f4a86873e50492d47b2545324f017e8f, type: 3}
+  - {fileID: 6158783067623368941, guid: de0b52478e5a02d43b26a10c3031bacb, type: 3}
   dieSoundEffect: {fileID: 630142572310130598}
 --- !u!50 &2654150752409510887
 Rigidbody2D:

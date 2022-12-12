@@ -6,8 +6,10 @@ public class PlayerCombatController : MonoBehaviour
 {
     [SerializeField]
     private bool combatEnabled;
-    [SerializeField] 
+
+    [SerializeField]
     private AudioSource hitSoundEffect;
+
     [SerializeField]
     private float inputTimer,
         attack1Radius,
@@ -34,6 +36,7 @@ public class PlayerCombatController : MonoBehaviour
 
     private void Start()
     {
+         hitSoundEffect.Stop();
         anim = GetComponent<Animator>();
         anim.SetBool("canAttack", combatEnabled);
         PC = GetComponent<PlayerController>();
@@ -55,7 +58,7 @@ public class PlayerCombatController : MonoBehaviour
                 gotInput = true;
                 lastInputTime = Time.time;
             }
-                hitSoundEffect.Play();
+            hitSoundEffect.Play();
         }
     }
 
@@ -111,6 +114,7 @@ public class PlayerCombatController : MonoBehaviour
         int direction;
 
         PS.DescreaseHealth(attackDetails.damageAmount);
+
 
         if (attackDetails.position.x < transform.position.x)
         {
