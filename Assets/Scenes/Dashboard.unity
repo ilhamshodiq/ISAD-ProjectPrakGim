@@ -1983,6 +1983,7 @@ GameObject:
   - component: {fileID: 2034162211}
   - component: {fileID: 2034162210}
   - component: {fileID: 2034162213}
+  - component: {fileID: 2034162214}
   m_Layer: 5
   m_Name: quit
   m_TagString: Untagged
@@ -2054,7 +2055,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2034162211}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2034162214}
+        m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
+        m_MethodName: QuitApp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2034162211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2113,3 +2126,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2034162214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034162208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fe1d73cdaf5c6841a72c4fe8befd942, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
