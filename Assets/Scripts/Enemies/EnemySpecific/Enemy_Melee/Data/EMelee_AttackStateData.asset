@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EMelee_AttackStateData
   m_EditorClassIdentifier: 
   attackRadius: 1.01
-  attackDamage: 10
+  attackDamage: 0.5
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 512

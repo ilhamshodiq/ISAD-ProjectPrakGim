@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -21,13 +22,16 @@ public class PlayerStats : MonoBehaviour
 
     public bool isgettingHit { get; private set; }
 
+    public bool isMintaRestart { get; set; }
+
     private void Awake()
     {
-
     }
 
     private void Start()
     {
+        isMintaRestart = false;
+
         dieSoundEffect.Stop();
         currentHealth = maxHealth;
         isgettingHit = false;
@@ -51,7 +55,13 @@ public class PlayerStats : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            isMintaRestart = true;
             Die();
+            //get current scene
+            dieSoundEffect.Play();
+            // Scene scene = SceneManager.GetActiveScene();
+            // //load scene
+            // SceneManager.LoadScene(scene.name);
         }
     }
 
@@ -59,9 +69,13 @@ public class PlayerStats : MonoBehaviour
     {
         if (other.tag == "FallDetector")
         {
+            isMintaRestart = true;
             dieSoundEffect.Play();
             isgettingHit = false;
             Die();
+            // Scene scene = SceneManager.GetActiveScene();
+            // //load scene
+            // SceneManager.LoadScene(scene.name);
         }
     }
 
@@ -70,6 +84,6 @@ public class PlayerStats : MonoBehaviour
         Instantiate(deathChunkParticle, transform.position, deathChunkParticle.transform.rotation);
         Instantiate(deathBloodParticle, transform.position, deathBloodParticle.transform.rotation);
         Destroy(gameObject);
-        GM.Respawn();
+        // GM.Respawn();
     }
 }

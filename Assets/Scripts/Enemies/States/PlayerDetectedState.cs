@@ -32,7 +32,7 @@ public class PlayerDetectedState : State
         base.Enter();
 
         performLongRangeAction = false;
-        entity.SetVelocity(0f);     
+        entity.SetVelocity(0f);
     }
 
     public override void Exit()
@@ -52,6 +52,6 @@ public class PlayerDetectedState : State
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();        
+        base.PhysicsUpdate();
     }
 }
